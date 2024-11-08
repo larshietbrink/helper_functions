@@ -1,5 +1,14 @@
 # Let's create a function to plot our loss curves...
 import matplotlib.pyplot as plt
+import tensorflow as tf
+import datetime
+
+# Create TensorBoard callback
+def create_tensorboard_callback(dir_name, experiment_name):
+  log_dir = dir_name + "/" + experiment_name + "/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+  tensorboard_callback = tf_keras.callbacks.TensorBoard(log_dir=log_dir)
+  print(f"Saving TensorBoard log files to: {log_dir}")
+  return tensorboard_callback
 
 # Plot the validation and training curves:
 def plot_loss_curves(history):
