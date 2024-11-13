@@ -4,7 +4,15 @@ import tensorflow as tf
 import datetime
 
 # Create TensorBoard callback
-def create_tensorboard_callback(dir_name, experiment_name):
+def create_tensorboard_callback(dir_name: str, experiment_name: str):
+  """
+  Returns a tensorboard callback object that saves logs to specified directory and automatically creates a logfile name.
+
+  Args:
+    dir_name: the name where the log files should be stored (string).
+    experiment_name: the name of the experiment (string).
+  """
+
   log_dir = dir_name + "/" + experiment_name + "/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
   tensorboard_callback = tf_keras.callbacks.TensorBoard(log_dir=log_dir)
   print(f"Saving TensorBoard log files to: {log_dir}")
