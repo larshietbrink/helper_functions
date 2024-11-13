@@ -1,3 +1,6 @@
+# Small helper functions to use in data science projects
+# Created by Lars Hietbrink
+
 # Let's create a function to plot our loss curves...
 import matplotlib.pyplot as plt
 import tensorflow as tf
@@ -13,8 +16,11 @@ def create_tensorboard_callback(dir_name: str, experiment_name: str):
     experiment_name: the name of the experiment (string).
   """
 
+  # Set the log file directory and file name and create a tensorboard callback
   log_dir = dir_name + "/" + experiment_name + "/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-  tensorboard_callback = tf_keras.callbacks.TensorBoard(log_dir=log_dir)
+  tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir)
+
+  # Print result and return callback object
   print(f"Saving TensorBoard log files to: {log_dir}")
   return tensorboard_callback
 
@@ -31,12 +37,16 @@ def plot_loss_curves(history):
       1. Training loss vs. Validation loss
       2. Training accuracy vs. Validation accuracy
   """
+  
+  # Get the loss values (both training and validation)
   loss = history.history["loss"]
   val_loss = history.history["val_loss"]
 
+  # Get the accuracy values (both training and validation)
   accuracy = history.history["accuracy"]
   val_accuracy = history.history["val_accuracy"]
 
+  # Set the number of epochs found in the history object
   epochs = range(len(history.history["loss"]))
 
   # Plot loss
@@ -52,4 +62,4 @@ def plot_loss_curves(history):
   plt.plot(epochs, val_accuracy, label="val_accuracy")
   plt.title("Accuracy")
   plt.xlabel("Epochs")
-  plt.legend();
+  plt.legend()
